@@ -21,8 +21,7 @@
 | macOS    | Apple Silicon (M1/M2/M3) | [foal_0.1.1_aarch64.dmg](https://github.com/atextual/foal/releases/download/v0.1.1/foal_0.1.1_aarch64.dmg)       |
 | macOS    | Intel                    | [foal_0.1.1_x64.dmg](https://github.com/atextual/foal/releases/download/v0.1.1/foal_0.1.1_x64.dmg)               |
 | Windows  | x64                      | [foal_0.1.1_x64-setup.exe](https://github.com/atextual/foal/releases/download/v0.1.1/foal_0.1.1_x64-setup.exe)   |
-| Linux    | x64 (AppImage)           | [foal_0.1.1_amd64.AppImage](https://github.com/atextual/foal/releases/download/v0.1.1/foal_0.1.1_amd64.AppImage) |
-| Linux    | x64 (deb)                | [foal_0.1.1_amd64.deb](https://github.com/atextual/foal/releases/download/v0.1.1/foal_0.1.1_amd64.deb)           |
+| Linux    | x64                      | [foal_0.1.1_amd64.deb](https://github.com/atextual/foal/releases/download/v0.1.1/foal_0.1.1_amd64.deb)           |
 
 ---
 
