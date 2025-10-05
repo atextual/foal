@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.nuxt/
+.output/
+src-tauri/target/
+*.test.ts
+test/
+coverage/
+.vercel/
+

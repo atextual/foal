@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.nuxt/
+.output/
+src-tauri/target/
+coverage/
+yarn.lock
+package-lock.json
+.vercel/
+

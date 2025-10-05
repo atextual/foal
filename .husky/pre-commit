@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+# Load Node.js path for GUI Git clients
+export PATH="/usr/local/bin:$PATH"
+export PATH="$HOME/.nvm/versions/node/$(ls -t $HOME/.nvm/versions/node 2>/dev/null | head -1)/bin:$PATH" 2>/dev/null || true
+
+# Clear problematic git config variables that cause issues with GUI clients
+unset GIT_CONFIG_PARAMETERS
+
+yarn lint-staged --no-stash
