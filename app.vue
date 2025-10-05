@@ -71,6 +71,8 @@ body {
   @apply bg-gradient-to-b lg:bg-gradient-to-br md:from-gray-200 md:to-gray-200 md:via-gray-200/50;
   @apply dark:bg-gradient-to-br lg:dark:from-gray-900 dark:to-gray-800;
   @apply dark:to-gray-900 dark:via-gray-900 dark:from-gray-900 md:dark:to-gray-800;
-  @apply min-h-screen flex items-center justify-center;
+  @apply min-h-screen flex items-center justify-center overflow-hidden;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 </style>

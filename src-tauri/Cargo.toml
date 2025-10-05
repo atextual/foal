@@ -1,6 +1,6 @@
 [package]
 name = "foal"
-version = "0.1.0"
+version = "0.1.1"
 description = "Foal - Next to Go Racing"
 authors = ["Textual"]
 license = ""

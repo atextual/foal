@@ -25,15 +25,15 @@
             <!-- Action buttons -->
             <div class="race-hud__actions">
               <button
-                :disabled="loading"
+                :disabled="props.loading"
                 class="race-hud__action race-hud__action--primary"
-                :title="loading ? 'Refreshing...' : 'Refresh races'"
+                :title="props.loading ? 'Refreshing...' : 'Refresh races'"
                 @click="refreshRaces"
               >
                 <UIcon
                   name="i-tabler-refresh"
                   class="w-3 h-3"
-                  :class="{ 'animate-spin': loading }"
+                  :class="{ 'animate-spin': props.loading }"
                 />
               </button>
               <button
@@ -120,9 +120,15 @@ import { useIntervalFn, useNow } from '@vueuse/core';
 import { RACE_CATEGORIES } from '@/types';
 import { TIMING, TIMING_SECONDS, REFRESH_INTERVALS } from '@/utils/constants';
 
+interface Props {
+  races: Race[];
+  loading: boolean;
+}
+
+const props = defineProps<Props>();
+
 const racesStore = useRacesStore();
 const filtersStore = useFiltersStore();
-const { races, loading } = storeToRefs(racesStore);
 
 // Auto-refresh state
 const isAutoRefreshEnabled = ref(true);
@@ -149,7 +155,7 @@ const selectUi = {
 // Computed stats
 const nextRace = computed(() => {
   const now = Math.floor(Date.now() / 1000);
-  let availableRaces = [...races.value];
+  let availableRaces = [...props.races];
 
   // Filter by time status (exclude expired races)
   availableRaces = availableRaces.filter((race) => {
@@ -220,15 +226,15 @@ const borderColorClass = computed(() => {
 
 // Status
 const statusText = computed(() => {
-  if (loading.value) return 'Updating...';
+  if (props.loading) return 'Updating...';
   if (!isAutoRefreshEnabled.value) return 'Paused';
   return 'Live';
 });
 
 const statusClasses = computed(() => ({
-  'race-hud__status--loading': loading.value,
-  'race-hud__status--paused': !isAutoRefreshEnabled.value && !loading.value,
-  'race-hud__status--live': isAutoRefreshEnabled.value && !loading.value,
+  'race-hud__status--loading': props.loading,
+  'race-hud__status--paused': !isAutoRefreshEnabled.value && !props.loading,
+  'race-hud__status--live': isAutoRefreshEnabled.value && !props.loading,
 }));
 
 const currentTime = useNow({ interval: TIMING.COUNTDOWN_UPDATE_INTERVAL });

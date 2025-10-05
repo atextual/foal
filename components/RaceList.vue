@@ -8,7 +8,7 @@
 
     <!-- Empty State -->
     <RaceListEmpty
-      v-else-if="displayRaces.length === 0"
+      v-else-if="displayRaces.length === 0 && !loading"
       :message="
         hasActiveFilters
           ? 'Try adjusting your filters to see more races.'
@@ -60,11 +60,18 @@ import { watchDebounced, useIntervalFn } from '@vueuse/core';
 import type { Race } from '@/types';
 import { TIMING_SECONDS, PAGINATION, TIMING } from '@/utils/constants';
 
+interface Props {
+  races: Race[];
+  loading: boolean;
+}
+
+const props = defineProps<Props>();
+
 const racesStore = useRacesStore();
 const filtersStore = useFiltersStore();
 
-// Get store state
-const { races, loading, error } = storeToRefs(racesStore);
+// Get error from store, use props for races and loading
+const { error } = storeToRefs(racesStore);
 
 // Computed races with pagination
 const displayRaces = computed(() => {
@@ -109,8 +116,8 @@ const paginationDirection = ref<'forward' | 'backward'>('forward');
 
 // Get all filtered races (before pagination)
 const allFilteredRaces = computed(() => {
-  // Start with all races from store
-  let availableRaces = [...racesStore.races];
+  // Start with all races from props
+  let availableRaces = [...props.races];
 
   // Filter by time status - remove races after expiration threshold
   const now = Math.floor(Date.now() / 1000);
@@ -194,12 +201,9 @@ watch(pageSize, () => {
 });
 
 // Lifecycle
-onMounted(async () => {
+onMounted(() => {
   // Initialize fetch limit from store
   fetchLimit.value = racesStore.fetchCount;
-
-  // Initial fetch
-  await racesStore.fetchRaces();
 
   // Start auto-refresh using VueUse
   resumeAutoRefresh();
@@ -306,7 +310,7 @@ onUnmounted(() => {
 .race-list__refresh {
   @apply fixed bottom-6 right-6 z-50;
   @apply bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-full px-4 py-2;
-  @apply border border-gray-400/50 dark:border-gray-700/50 shadow-lg;
+  @apply border border-gray-200/50 dark:border-gray-700/50 shadow-lg;
 }
 
 /* Smooth transitions */
